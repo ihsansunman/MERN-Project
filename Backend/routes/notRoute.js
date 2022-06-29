@@ -1,21 +1,18 @@
 const express = require("express");
-
+const {
+  getNotlar,
+  setNotlar,
+  updateNotlar,
+  deleteNotlar,
+} = require("../controllers/notController");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.status(200).json({ mesat: "get notlar" });
-});
+router.get("/", getNotlar);
 
-router.post('/', (req, res)=>{
-    res.status(200).json({mesaj: 'post not'})
-})
+router.post("/", setNotlar);
 
-router.put('/:id', (req,res)=>{
-    res.status(200).json({mesaj: `put ${req.params.id} idli not`})
-})
+router.put("/:id", updateNotlar);
 
-router.delete('/:id',(req,res)=>{
-    res.status(200).json({mesaj: `delete ${req.params.id} idli not`})
-})
+router.delete("/:id", deleteNotlar);
 
 module.exports = router;
