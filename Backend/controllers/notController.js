@@ -41,7 +41,18 @@ const updateNotlar = asyncHandler(async (req, res) => {
 });
 
 const deleteNotlar = asyncHandler(async (req, res) => {
-  res.status(200).json({ mesaj: `delete ${req.params.id} idli not` });
+  // res.status(200).json({ mesaj: `delete ${req.params.id} idli not` });
+
+  const not= await notModel.findById(req.params.id)
+
+  if(!not){
+    res.status(400)
+    throw new Error('Not Bulunamadı')
+  }
+
+  await not.remove()
+
+  res.status(200).json({mesaj: 'Not Silindi',silinenNot: not})
 });
 
 module.exports = {
