@@ -8,6 +8,6 @@ const {
 const router = express.Router();
 
 router.route('/').get(getNotlar).post(setNotlar)
-router.route(':id').put(updateNotlar).delete(deleteNotlar)
+router.route('/:id').put(updateNotlar).delete(deleteNotlar)
 
 module.exports = router;
