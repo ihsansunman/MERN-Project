@@ -2,7 +2,9 @@ const asyncHandler = require("express-async-handler");
 const notModel = require("../models/notModel");
 
 const getNotlar = asyncHandler(async (req, res) => {
-  res.status(200).json({ mesaj: "get notlar" });
+  const notlar= await notModel.find()
+
+  res.status(200).json(notlar)
 });
 
 const setNotlar = asyncHandler(async (req, res) => {
