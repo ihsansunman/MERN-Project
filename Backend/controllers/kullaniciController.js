@@ -1,6 +1,13 @@
 const asyncHandler = require("express-async-handler");
 const Kullanici = require("../models/kullaniciModel");
 const bcrypt = require("bcryptjs");
+const JWT = require("jsonwebtoken");
+
+const tokenOlustur = (id) => {
+  return JWT.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "30d",
+  });
+};
 
 const registerKullanici = asyncHandler(async (req, res) => {
   const { kullaniciAd, email, parola } = req.body;
@@ -31,6 +38,7 @@ const registerKullanici = asyncHandler(async (req, res) => {
       _id: yeniKullanici.id,
       kullaniciAd: yeniKullanici.kullaniciAd,
       email: yeniKullanici.email,
+      token: tokenOlustur(yeniKullanici._id),
     });
   } else {
     res.status(400);
@@ -49,6 +57,7 @@ const loginKullanici = asyncHandler(async (req, res) => {
       __id: kullanici.id,
       kullaniciAd: kullanici.kullaniciAd,
       email: kullanici.email,
+      token: tokenOlustur(kullanici._id)
     });
   } else {
     res.status(400);
