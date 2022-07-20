@@ -67,9 +67,15 @@ const loginKullanici = asyncHandler(async (req, res) => {
   res.json({ mesaj: "Kullanici Login İşlemleri" });
 });
 
-const getKullanici = (req, res) => {
-  res.json({ mesaj: "Kullanıcı Get İşlemleri" });
-};
+const getKullanici = asyncHandler(async (req, res) => {
+  const {_id, kullaniciAd, email}=await Kullanici.findById(req.user.id)
+
+  res.status(200).json({
+    id: _id,
+    kullaniciAd,
+    email
+  })
+})
 
 module.exports = {
   registerKullanici,
