@@ -7,7 +7,9 @@ const {
 } = require("../controllers/notController");
 const router = express.Router();
 
-router.route('/').get(getNotlar).post(setNotlar)
-router.route('/:id').put(updateNotlar).delete(deleteNotlar)
+const {kullaniciKontrol} = require('../middlewares/authMiddleware')
+
+router.route('/').get(kullaniciKontrol, getNotlar).post(kullaniciKontrol, setNotlar)
+router.route('/:id').put(kullaniciKontrol, updateNotlar).delete(kullaniciKontrol, deleteNotlar)
 
 module.exports = router;
