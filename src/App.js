@@ -12,7 +12,7 @@ function App() {
   const token = localStorage.getItem("Token");
   const [data, setData] = useState([
     {
-      baslik: "Veri Yok",
+      baslik: "Lütfen Giriş Yapınız",
     },
   ]);
 
@@ -40,7 +40,7 @@ function App() {
 
   return (
     <Container maxWidth="lg">
-      <p>Merhaba</p>
+      <p>Merhaba {data.length} adet göreviniz bulunuyor.</p>
 
       <Login getData={getData} />
 

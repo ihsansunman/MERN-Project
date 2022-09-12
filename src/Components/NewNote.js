@@ -7,7 +7,6 @@ import TextField from "@mui/material/TextField";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import Button from "@mui/material/Button";
-import SendIcon from "@mui/icons-material/Send";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
@@ -45,8 +44,8 @@ export default function NewNote({ getData }) {
         }
       )
       .then(function () {
-        getData()
-        setOpen(false)
+        getData();
+        setOpen(false);
       });
   };
 
@@ -55,13 +54,17 @@ export default function NewNote({ getData }) {
       <SpeedDial
         ariaLabel="New Note"
         onClick={handleOpen}
-        sx={{ position: "absolute", bottom: 16, right: 16 }}
+        sx={{
+          position: "absolute",
+          zIndex: 1101,
+          bottom: 30,
+          left: 0,
+          right: 0,
+          margin: "0 auto",
+        }}
         icon={<SpeedDialIcon />}
       />
-      <Modal
-        open={open}
-        onClose={handleClose}
-      >
+      <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <Typography variant="h6">Yeni Not Ekle</Typography>
           <TextField
@@ -89,7 +92,6 @@ export default function NewNote({ getData }) {
           </Select>
           <Button
             variant="contained"
-            endIcon={<SendIcon />}
             onClick={() => postNote(noteHeader, noteBody, notePriority)}
           >
             Ekle
