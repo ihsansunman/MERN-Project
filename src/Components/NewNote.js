@@ -55,7 +55,7 @@ export default function NewNote({ getData }) {
         ariaLabel="New Note"
         onClick={handleOpen}
         sx={{
-          position: "absolute",
+          position: "fixed",
           zIndex: 1101,
           bottom: 30,
           left: 0,

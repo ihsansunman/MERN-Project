@@ -8,7 +8,6 @@ import Grid from "@mui/material/Grid";
 import Container from '@mui/material/Container'
 
 function App() {
-  // const [token, setToken] = useState("");
   const token = localStorage.getItem("Token");
   const [data, setData] = useState([
     {
@@ -54,6 +53,8 @@ function App() {
                   noteBody={x.aciklama}
                   lastUpdate={x.updatedAt}
                   priority={x.oncelik}
+                  id={x._id}
+                  getData={getData}
                 />
               </Grid>
             );
