@@ -6,6 +6,7 @@ const kullaniciKontrol= asyncHandler(async(req, res,next)=>{
     let sifrelenmisToken;
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
         try{
+            
             sifrelenmisToken=req.headers.authorization.split(' ')[1]
 
             const token= jwt.verify(sifrelenmisToken, process.env.JWT_SECRET)
