@@ -18,8 +18,6 @@ app.use('/api/kullanicilar',require('./routes/kullaniciRoute'));
 app.use(hataYakala);
 baglan();
 
-console.log(dotenv);
-
 app.listen(PORT, () =>
   console.log(`Server ${PORT} üzerinden yayında.`.magenta.italic)
 );
