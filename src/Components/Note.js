@@ -5,9 +5,16 @@ import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
 import IconButton from "@mui/material/IconButton";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import MoreVert from "@mui/icons-material/MoreVert";
 import Delete from "@mui/icons-material/Clear";
+import Edit from "@mui/icons-material/Edit";
 import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import EditNote from "./EditNote";
 
 export default function Note({
   noteHeader,
@@ -15,8 +22,19 @@ export default function Note({
   lastUpdate,
   priority,
   id,
-  getData
+  getData,
 }) {
+  const [menuAnchor, setmenuAnchor] = React.useState(null);
+  const [editOpen, seteditOpen] = React.useState(false);
+  const menuOpen = Boolean(menuAnchor);
+  const menuClick = (event) => {
+    setmenuAnchor(event.currentTarget);
+  };
+  const menuClose = () => {
+    setmenuAnchor(null);
+  };
+  const editClick = () => seteditOpen(true);
+  const editClose = () => seteditOpen(false);
   let priorityValue;
   let priorityColor;
 
@@ -37,16 +55,17 @@ export default function Note({
       break;
   }
 
-  const deleteNote =(id)=>{
+  const deleteNote = (id) => {
     axios
       .delete(`http://localhost:4000/api/notlar/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("Token")}`,
         },
-      }).then(function () {
+      })
+      .then(function () {
         getData();
       });
-  }
+  };
 
   return (
     <Box sx={{ minWidth: 275 }}>
@@ -55,9 +74,25 @@ export default function Note({
           <CardHeader
             title={noteHeader}
             action={
-              <IconButton onClick={()=> deleteNote(id)}>
-                <Delete />
-              </IconButton>
+              <div>
+                <IconButton onClick={menuClick}>
+                  <MoreVert />
+                </IconButton>
+                <Menu anchorEl={menuAnchor} open={menuOpen} onClose={menuClose}>
+                  <MenuItem onClick={() => editClick()}>
+                    <ListItemIcon>
+                      <Edit />
+                    </ListItemIcon>
+                    <ListItemText>Düzenle</ListItemText>
+                  </MenuItem>
+                  <MenuItem onClick={() => deleteNote(id)}>
+                    <ListItemIcon>
+                      <Delete />
+                    </ListItemIcon>
+                    <ListItemText>Sil</ListItemText>
+                  </MenuItem>
+                </Menu>
+              </div>
             }
           />
           <CardContent sx={{ paddingTop: 0 }}>
@@ -71,9 +106,8 @@ export default function Note({
             </Typography>
             <Chip label={priorityValue} color={priorityColor} size="small" />
           </CardContent>
-          {/* <CardActions>
-            <Button size="small">Learn More</Button>
-          </CardActions> */}
+
+          <EditNote editOpen={editOpen} editClose={editClose} noteHeader={noteHeader} noteBody={noteBody} />
         </React.Fragment>
       </Card>
     </Box>
