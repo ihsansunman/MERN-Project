@@ -1,4 +1,4 @@
-const hataYakala = (err, req, res, next) => {
+const hataYakala = (err, res) => {
   const statusCode = res.statusCode ? res.statusCode : 500;
 
   res.status(statusCode);

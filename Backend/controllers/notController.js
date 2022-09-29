@@ -1,4 +1,3 @@
-const { response } = require("express");
 const asyncHandler = require("express-async-handler");
 const notModel = require("../models/notModel");
 const kullaniciModel = require("../models/kullaniciModel");

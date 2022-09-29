@@ -5,7 +5,7 @@ const JWT = require("jsonwebtoken");
 
 const tokenOlustur = (id) => {
   return JWT.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: "30d",
+    expiresIn: "1d",
   });
 };
 

@@ -10,14 +10,16 @@ import Fab from "@mui/material/Fab";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SearchIcon from "@mui/icons-material/Search";
-import MoreIcon from "@mui/icons-material/MoreVert";
+import PersonAdd from "@mui/icons-material/PersonAdd";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import SignUp from "./Signup";
 
 export default function Login({ getData }) {
   const [open, setOpen] = useState(false);
+  const [signOpen, setSignOpen] = useState(false)
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -75,8 +77,8 @@ export default function Login({ getData }) {
           <IconButton color="inherit">
             <SearchIcon />
           </IconButton>
-          <IconButton color="inherit">
-            <MoreIcon />
+          <IconButton color="inherit" onClick={()=> setSignOpen(true)}>
+            <PersonAdd />
           </IconButton>
         </Toolbar>
       </AppBar>
@@ -104,6 +106,8 @@ export default function Login({ getData }) {
           </Button>
         </Box>
       </Modal>
+
+      <SignUp signOpen={signOpen} close={()=> setSignOpen(false)}/>
     </>
   );
 }
